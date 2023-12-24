@@ -2,7 +2,7 @@ import cv2 as cv
 import numpy as np
 
 # read image
-img = cv.imread('opencv-training-assets/cat.jpg')
+img = cv.imread('opencv-training-assets/cats.jpg')
 
 # make two blank windows
 blank1 = np.zeros(img.shape, dtype='uint8')
@@ -14,6 +14,11 @@ gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 # make canny image
 canny = cv.Canny(img, 125, 175)
 cv.imshow('canny img', canny)
+
+# make Laplacian image
+lap = cv.Laplacian(gray, cv.CV_64F)
+lap = np.uint8(np.absolute(lap))
+cv.imshow('Laplacian', lap)
 
 # different kinds of threshold
 ret, thresh = cv.threshold(gray, 125, 255, cv.THRESH_BINARY)
@@ -31,6 +36,13 @@ print(f'{len(contours)} contours found from canny!')
 
 cv.drawContours(blank1, contours, -1, (0, 255, 255), 1)
 cv.imshow('contours drawn from canny', blank1)
+
+# using Laplacian to find contours
+contours, hierarchies = cv.findContours(lap, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
+print(f'{len(contours)} contours found from laplacian!')
+
+cv.drawContours(blank1, contours, -1, (0, 255, 255), 1)
+cv.imshow('contours drawn from laplacian', blank1)
 
 # using threshold to find contours
 contours, hierarchies = cv.findContours(adaptiveThresh, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
