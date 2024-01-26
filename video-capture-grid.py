@@ -5,7 +5,7 @@ import cv2 as cv
 rows = int(input("How many rows? "))
 cols = int(input("How many cols? "))
 
-# set position of window
+# set position of first window
 x = 0
 y = 0
 
@@ -68,8 +68,8 @@ while True:
 	
     # reset coordinate y
     y = 0
-
-	# the 'q' button is set as the quitting button
+    
+    # the 'q' button is set as the quitting button
     if cv.waitKey(1) & 0xFF == ord('q'):
         break
 
