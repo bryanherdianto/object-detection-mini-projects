@@ -17,10 +17,10 @@ def xml_to_csv(path):
                      int(root.find('size')[0].text),
                      int(root.find('size')[1].text),
                      member[0].text,
-                     int(member[5][0].text),
-                     int(member[5][1].text),
-                     int(member[5][2].text),
-                     int(member[5][3].text)
+                     int(member[5][0].text) if int(member[5][0].text) >= 0 else 0,
+                     int(member[5][1].text) if int(member[5][1].text) >= 0 else 0,
+                     int(member[5][2].text) if int(member[5][2].text) <= int(root.find('size')[0].text) else int(root.find('size')[0].text),
+                     int(member[5][3].text) if int(member[5][3].text) <= int(root.find('size')[1].text) else int(root.find('size')[1].text)
                      )
             xml_list.append(value)
     column_name = ['filename', 'width', 'height', 'class', 'xmin', 'ymin', 'xmax', 'ymax']
